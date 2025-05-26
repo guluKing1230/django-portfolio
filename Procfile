@@ -1,2 +1,1 @@
-release: python manage.py migrate
-web: gunicorn portfolio_site.wsgi --log-file -
+web: python manage.py migrate && gunicorn portfolio_site.wsgi --log-file -
