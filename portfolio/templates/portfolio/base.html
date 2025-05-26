@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Portfolio{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                {% if personal_info %}{{ personal_info.name }}{% else %}Rachel Du{% endif %}
+            </div>
+            <ul class="nav-menu">
+                <li><a href="{% url 'portfolio:home' %}">Home</a></li>
+                <li><a href="{% url 'portfolio:about' %}">Courses</a></li>
+                <li><a href="{% url 'portfolio:experience' %}">Experience</a></li>
+                <li><a href="{% url 'portfolio:projects' %}">Projects</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            {% if personal_info %}
+                <p>&copy; 2025 {{ personal_info.name }}. All rights reserved.</p>
+            {% else %}
+                <p>&copy; 2025 Portfolio. All rights reserved.</p>
+            {% endif %}
+        </div>
+    </footer>
+</body>
+</html>

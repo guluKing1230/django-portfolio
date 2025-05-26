@@ -1,0 +1,42 @@
+{% extends 'portfolio/base.html' %}
+
+{% block title %}About - Portfolio{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Courses</h1>
+        <p>My learning journey at Carnegie Mellon</p>
+    </div>
+</section>
+
+{% if courses %}
+<section class="courses-section">
+    <div class="container">
+        <div class="courses-grid">
+            {% for course in courses %}
+                <div class="course-card">
+                    <h3>{{ course.name }}</h3>
+                    <p class="course-institution">{{ course.institution }}</p>
+                    <p class="course-date">Semester Taken: {{ course.get_season_year  }}</p>
+                    {% if course.description %}
+                        <p>{{ course.description }}</p>
+                    {% endif %}
+                    {% if course.certificate_url %}
+                        <a href="{{ course.certificate_url }}" target="_blank" class="btn btn-primary">Link to Course Website</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% else %}
+<section class="no-courses">
+    <div class="container">
+        <div class="no-content">
+            <p>No courses found. Add some through the admin panel!</p>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

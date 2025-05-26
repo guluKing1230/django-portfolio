@@ -1,0 +1,76 @@
+{% extends 'portfolio/base.html' %}
+
+{% block title %}Home - Portfolio{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        {% if personal_info %}
+            <h1>{{ personal_info.name }}</h1>
+            <h2>{{ personal_info.title }}</h2>
+            <p>{{ personal_info.bio }}</p>
+            <div class="hero-buttons">
+                <a href="{% url 'portfolio:about' %}" class="btn btn-primary">View Courses Taken</a>
+                <a href="{% url 'portfolio:experience' %}" class="btn btn-primary">View Experiences</a>
+                <a href="{% url 'portfolio:projects' %}" class="btn btn-primary">View Projects</a>
+                {% if personal_info.resume_file %}
+                    <a href="{{ personal_info.resume_file.url }}" class="btn btn-secondary" target="_blank">Download Resume</a>
+                {% endif %}
+            </div>
+        {% else %}
+            <h1>Welcome to My Portfolio</h1>
+            <p>Please add your personal information through the admin panel.</p>
+        {% endif %}
+    </div>
+</section>
+
+{% if personal_info %}
+<section class="contact-section">
+    <div class="container">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h2>Personal Information</h2>
+                <ul class="contact-list">
+                    <li><strong>Email:</strong> {{ personal_info.email }}</li>
+                    <li><strong>Phone:</strong> {{ personal_info.phone }}</li>
+                    <li><strong>Education:</strong> {{ personal_info.education }}</li>
+                    <li><strong>Location:</strong> {{ personal_info.location }}</li>
+                </ul>
+            </div>
+            {% if personal_info.profile_image %}
+            <div class="contact-image">
+                <img src="{{ personal_info.profile_image.url }}" alt="{{ personal_info.name }}">
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if featured_projects %}
+<section class="featured-projects">
+    <div class="container">
+        <h2>Featured Projects</h2>
+        <div class="projects-grid">
+            {% for project in featured_projects %}
+                <div class="project-card">
+                    {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                    {% endif %}
+                    <h3>{{ project.title }}</h3>
+                    <p>{{ project.description|truncatewords:20 }}</p>
+                    <div class="project-links">
+                        {% if project.github_url %}
+                            <a href="{{ project.github_url }}" target="_blank">GitHub</a>
+                        {% endif %}
+                        {% if project.live_url %}
+                            <a href="{{ project.live_url }}" target="_blank">Live Demo</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

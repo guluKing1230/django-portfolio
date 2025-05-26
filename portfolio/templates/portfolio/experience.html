@@ -1,0 +1,55 @@
+{% extends 'portfolio/base.html' %}
+
+{% block title %}Experience - Portfolio{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Experience</h1>
+        <p>My professional experiences and work history</p>
+    </div>
+</section>
+
+<section class="experience-section">
+    <div class="container">
+        {% if experiences %}
+            <div class="experience-timeline">
+                {% for experience in experiences %}
+                    <div class="experience-item">
+                        <div class="experience-content">
+                            <h3>{{ experience.title }}</h3>
+                            <h4>{{ experience.company }}</h4>
+                            <div class="experience-meta">
+                                <span class="experience-type">{{ experience.get_experience_type_display }}</span>
+                                <span class="experience-date">
+                                    {{ experience.start_date|date:"M Y" }} - 
+                                    {% if experience.is_current %}
+                                        Present
+                                    {% elif experience.end_date %}
+                                        {{ experience.end_date|date:"M Y" }}
+                                    {% else %}
+                                        Present
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <p>{{ experience.description|linebreaks }}</p>
+                            {% if experience.skills_list %}
+                                <div class="skills-used">
+                                    <strong>Skills:</strong>
+                                    {% for skill in experience.skills_list %}
+                                        <span class="skill-tag">{{ skill }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="no-content">
+                <p>No experience entries found. Add some through the admin panel!</p>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
