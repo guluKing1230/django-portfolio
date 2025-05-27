@@ -12,6 +12,10 @@ DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['*']  # Railway handles this automatically
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.railway.app',
+    'https://web-production-bc9d.up.railway.app'  # Your specific Railway URL
+]
 
 # Application definition
 INSTALLED_APPS = [
