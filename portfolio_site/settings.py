@@ -10,11 +10,15 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-your-dev-key-here')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['*']  # Railway handles this automatically
+ALLOWED_HOSTS = ['*',
+                 'racheldu.com',
+                 'www.racheldu.com']  # Railway handles this automatically
 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.railway.app',
-    'https://web-production-bc9d.up.railway.app'  # Your specific Railway URL
+    'https://web-production-bc9d.up.railway.app',
+    'https://racheldu.com',
+    'https://www.racheldu.com'  # Your specific Railway URL
 ]
 
 # Application definition
